@@ -1,0 +1,16 @@
+{
+  "_comment": "Frontend package.json for ci-demo. The 'build' script simulates compiling/bundling the frontend and is what GitHub Actions runs. Also has a 'start' script for local execution.",
+  "name": "ci-demo-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for ci-demo - simulates a Node.js frontend build step for a GitHub Actions CI lab",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "build": "node app.js"
+  },
+  "keywords": ["ci", "github-actions", "frontend", "devops"],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

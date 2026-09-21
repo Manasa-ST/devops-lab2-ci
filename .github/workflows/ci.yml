@@ -1,0 +1,88 @@
+# =====================================================================
+# ci.yml - GitHub Actions Continuous Integration workflow for ci-demo
+# =====================================================================
+# What this file does:
+#   Every time code is pushed to (or a Pull Request targets) the `main`
+#   branch, GitHub automatically spins up a fresh Ubuntu runner and runs
+#   the steps below. This is Continuous Integration: the code is built
+#   and tested automatically on every change.
+#
+# Name of the workflow (shown in the Actions tab of the repo).
+name: CI Pipeline
+
+# ---------------------------------------------------------------------
+# 1. TRIGGERS - WHEN should the workflow run?
+# ---------------------------------------------------------------------
+on:
+  push:
+    branches: [main]        # Run when commits are pushed to main.
+  pull_request:
+    branches: [main]        # Run when a PR is opened/updated against main.
+
+# ---------------------------------------------------------------------
+# 2. JOBS - WHAT should run?
+# ---------------------------------------------------------------------
+jobs:
+  # A single 'build' job containing every CI step. Jobs run in parallel
+  # by default; we only need one here.
+  build:
+    # Runner OS image: a clean Ubuntu Linux virtual machine.
+    runs-on: ubuntu-latest
+
+    # Defines an environment variable available to every step in the job.
+    env:
+      NODE_ENV: ci
+
+    # A matrix would let us test multiple Node versions at once;
+    # kept simple here, running exactly one configuration (Node 18).
+    strategy:
+      matrix:
+        node-version: [18]
+
+    # ---------------------------------------------------------------
+    # 3. STEPS - the ordered list of commands the runner executes.
+    # ---------------------------------------------------------------
+    steps:
+      # (a) Download a copy of the repository into the runner so we
+      #     can work with the source code.
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # (b) Install the requested Node.js version (18) via actions/setup-node.
+      #     'cache: npm' makes later npm install commands faster.
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      # (c) --- BACKEND -------------------------------------------------
+      #     Install backend dependencies from backend/package.json.
+      #     The working-directory key scopes this step to the backend folder.
+      - name: Install backend dependencies
+        working-directory: backend
+        run: npm install
+
+      # (d) Run the unit tests (npm test -> node test.js). If any test
+      #     fails, node exits non-zero and this job (and the pipeline)
+      #     fail, blocking the push/merge. This is the core of CI.
+      - name: Run backend tests
+        working-directory: backend
+        run: npm test
+
+      # (e) --- FRONTEND ------------------------------------------------
+      #     Install frontend dependencies from frontend/package.json.
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm install
+
+      # (f) Simulate a production build step. In a real app this would
+      #     be `npm run build` bundling the UI; app.js prints a status
+      #     message so we get deterministic, visible output.
+      - name: Simulate frontend build
+        working-directory: frontend
+        run: npm run build
+
+      # (g) Optional final summary so the log clearly shows success.
+      - name: CI status
+        run: echo "✅ CI pipeline completed successfully for Node ${{ matrix.node-version }}"

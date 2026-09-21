@@ -1,0 +1,16 @@
+{
+  "_comment": "Backend package.json for ci-demo. The 'test' script (node test.js) is what GitHub Actions runs in the 'Run backend tests' step.",
+  "name": "ci-demo-backend",
+  "version": "1.0.0",
+  "description": "Backend for ci-demo - demonstrates unit testing of a Node.js add() function for a GitHub Actions CI lab",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test.js"
+  },
+  "keywords": ["ci", "github-actions", "nodejs", "devops"],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
