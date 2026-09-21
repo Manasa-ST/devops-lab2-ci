@@ -22,4 +22,4 @@ console.log(getGreeting());
 console.log("Frontend build simulation: OK");
 
 // Export for any future unit tests.
-module.exports = { getGreeting };
+module.exports = { getGreeting };// CI demo
