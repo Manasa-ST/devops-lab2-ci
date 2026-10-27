@@ -32,3 +32,5 @@ console.log("Demo: add(10, 5) =", add(10, 5));
 
 // Export the function so test.js (and CI test step) can consume it.
 module.exports = { add };
+
+//3rd commit
