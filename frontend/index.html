@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CI Demo Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6fb;
+            color: #20263a;
+        }
+
+        header {
+            background: #171d35;
+            color: white;
+            padding: 22px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h2 { color: #8b9cff; }
+
+        header span {
+            color: #a9b5d5;
+            font-size: 14px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 65px 20px 45px;
+        }
+
+        .hero h1 {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            color: #69738a;
+            font-size: 17px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px #0000000c;
+        }
+
+        .card h3 { margin-bottom: 12px; }
+
+        .status {
+            color: #16834b;
+            font-weight: bold;
+        }
+
+        .calculator {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        input {
+            width: 110px;
+            padding: 12px;
+            margin: 12px 5px;
+            border: 1px solid #ccd2e0;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 12px 24px;
+            background: #5869e8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover { background: #394bc7; }
+
+        #result {
+            margin-top: 18px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #69738a;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>CI Demo</h2>
+    <span>DevOps Lab 2 | GitHub Actions</span>
+</header>
+
+<section class="hero">
+    <h1>Continuous Integration Dashboard</h1>
+    <p>Automating application testing and building with GitHub Actions.</p>
+</section>
+
+<main class="container">
+
+    <div class="cards">
+        <div class="card">
+            <h3>Backend</h3>
+            <p class="status">✓ Test Passed</p>
+            <p>Node.js addition function</p>
+        </div>
+
+        <div class="card">
+            <h3>Frontend</h3>
+            <p class="status">✓ Build Passed</p>
+            <p>Frontend build simulation</p>
+        </div>
+
+        <div class="card">
+            <h3>CI Pipeline</h3>
+            <p class="status">✓ Configured</p>
+            <p>GitHub Actions workflow</p>
+        </div>
+    </div>
+
+    <div class="card calculator">
+        <h2>Backend Function Demo</h2>
+        <p>Test your addition function below.</p>
+
+        <input type="number" id="num1" placeholder="First number">
+        <input type="number" id="num2" placeholder="Second number">
+
+        <br>
+        <button onclick="calculate()">Add Numbers</button>
+
+        <div id="result">Result: —</div>
+    </div>
+
+</main>
+
+<footer>
+    MCA DevOps Lab 2 | Continuous Integration using GitHub Actions
+</footer>
+
+<script>
+    function calculate() {
+        const a = Number(document.getElementById("num1").value);
+        const b = Number(document.getElementById("num2").value);
+
+        document.getElementById("result").innerText =
+            "Result: " + (a + b);
+    }
+</script>
+
+</body>
+</html>
